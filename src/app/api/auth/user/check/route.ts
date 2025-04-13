@@ -9,7 +9,7 @@ connect().then(() => console.log("Database connected")).catch(console.error);
 export async function GET(req: NextRequest) {
     try{
         const token = req.cookies.get("token")?.value;
-        console.log("Token:", token);
+        // console.log("Token:", token);
         if (!token) {
             return NextResponse.json(
                 { error: "Token not found" },

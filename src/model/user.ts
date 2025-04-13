@@ -52,6 +52,10 @@ const userSchema =new mongoose.Schema({
         type: Date,
         default: new Date()
     },
+    accessToken:{
+        type: String,
+        default: null
+    },
     updatedAt: {
         type: Date,
         default: new Date()

@@ -1,6 +1,9 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { NextAuthOptions } from "next-auth";
+import connect from "@/helper/dbConn";
+import User from "@/model/user";
+import jwt from "jsonwebtoken";
 
 const fitnessScopes = [
   "https://www.googleapis.com/auth/fitness.activity.read",
@@ -45,16 +48,47 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account , user}) {
       if (account) {
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
+        await connect();
+          const userData = await User.find({ email: user?.email });
+          if (!userData) {
+            throw new Error("User not found");
+          }
+          User.findOneAndUpdate(
+            { email: user?.email },
+            {
+              GoogleId: account.providerAccountId,
+              GoogleRefreshToken: account.refresh_token,
+              accessToken: account.access_token,
+            },
+            { new: true, upsert: true }
+          )
+            .then((user) => {
+              console.log("User updated successfully:");
+            }
+            )
+            .catch((error) => {
+              console.error("Error updating user:", error);
+            }
+            );
+            const cookieToken = jwt.sign({
+              email: userData.email,
+              name: userData.name,
+              refreshToken : account.refresh_token,
+            }, process.env.TOKEN_SECRET!, {
+              expiresIn: "7d",
+            })
+            token.cookieToken = cookieToken;
       }
       return token;
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken;
       session.refreshToken = token.refreshToken;
+      session.cookieToken = token.cookieToken;
       return session;
     },
   },
