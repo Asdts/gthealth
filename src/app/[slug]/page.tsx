@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { notFound } from "next/navigation";
 import LoginForm from "@/components/LoginForm";
@@ -8,7 +9,10 @@ import VerifyEmailPage from "@/components/verify";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-export default function AuthPage({ params }: { params: { slug: string } }) {
+
+
+
+export default function AuthPage({ params }: { params: any }) {
   const { slug } = params;
   const router = useRouter();
   

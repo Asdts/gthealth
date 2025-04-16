@@ -3,16 +3,6 @@ import Link from "next/link"
 export default function PrivacyPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="border-b">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="text-xl font-bold">FitnessTracker</div>
-          <nav className="flex gap-4">
-            <Link href="/">Home</Link>
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/login">Login</Link>
-          </nav>
-        </div>
-      </header>
       <main className="flex-1 container py-12">
         <div className="mx-auto max-w-3xl space-y-8">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl">Privacy Policy</h1>

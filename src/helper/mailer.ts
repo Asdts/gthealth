@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import nodemailer  from 'nodemailer';
 import User from '@/model/user';
 import bcryptjs from 'bcryptjs';
 
-async function sendMail(to, mailOption) {
+async function sendMail(to: any, mailOption: { from: string | undefined; to: any; subject: string; html: string; }) {
     try {
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -22,7 +23,7 @@ async function sendMail(to, mailOption) {
     }
 }
 
-const sendVerMail = async ({ email, emailType, userId }) => {
+const sendVerMail = async ({ email, emailType, userId }: { email: string; emailType: string; userId: string }) => {
     try {
         if (!['verify', 'forgot'].includes(emailType)) {
             throw new Error('Invalid email type');

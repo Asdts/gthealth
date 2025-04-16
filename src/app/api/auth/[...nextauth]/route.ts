@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, Session } from "next-auth";
 import connect from "@/helper/dbConn";
 import User from "@/model/user";
 import jwt from "jsonwebtoken";
@@ -33,6 +34,14 @@ const fitnessScopes = [
   "openid",
 ].join(" ");
 
+declare module "next-auth" {
+  interface Session {
+    accessToken?: string;
+    refreshToken?: string;
+    cookieToken?: string;
+  }
+}
+
 const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -53,7 +62,7 @@ const authOptions: NextAuthOptions = {
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
         await connect();
-          const userData = await User.find({ email: user?.email });
+          const userData = await User.findOne({ email: user?.email });
           if (!userData) {
             throw new Error("User not found");
           }
@@ -86,9 +95,9 @@ const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      session.accessToken = token.accessToken;
-      session.refreshToken = token.refreshToken;
-      session.cookieToken = token.cookieToken;
+      session.accessToken = token.accessToken as string | undefined;
+      session.refreshToken = token.refreshToken as string | undefined;
+      session.cookieToken = token.cookieToken as string | undefined;
       return session;
     },
   },

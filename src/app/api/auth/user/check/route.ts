@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // pages/api/auth/check.ts
 import { NextRequest, NextResponse } from "next/server"
 import jwt from "jsonwebtoken"
