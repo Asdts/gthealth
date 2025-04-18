@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Link from "next/link"
 import { ArrowLeft, Lock, Shield, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
