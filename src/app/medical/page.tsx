@@ -19,10 +19,7 @@ export default function MedicalAnalyzer() {
   const [activeTab, setActiveTab] = useState("upload");
   const { toast } = useToast();
 
-  // Simulate fetching previous reports on component mount
-  useState(() => {
-    fetchPreviousReports();
-  });
+  
 
   const fetchPreviousReports = async () => {
     try {
@@ -37,6 +34,10 @@ export default function MedicalAnalyzer() {
     }
   };
 
+  // Simulate fetching previous reports on component mount
+  useState(() => {
+    fetchPreviousReports();
+  });
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
