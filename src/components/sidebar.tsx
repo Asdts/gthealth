@@ -19,9 +19,9 @@ export default function Sidebar() {
     return (
         <>
        <div className="hidden w-64 flex-col border-r bg-gray-50 p-4 md:flex">
-              <div className="flex h-12 items-center px-2 font-bold">
+              {/* <div className="flex h-12 items-center px-2 font-bold">
                 <Link href="/">FitnessTracker</Link>
-              </div>
+              </div> */}
               <nav className="mt-8 flex flex-col gap-2">
                 <Button variant="ghost" className="justify-start" asChild>
                   <Link href="/dashboard">

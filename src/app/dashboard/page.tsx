@@ -52,7 +52,7 @@ export default function DashboardPage() {
   }
   return (
     <div className="flex-1">
-      <header className="border-b">
+      {/* <header className="border-b">
         <div className="container flex h-16 items-center justify-between">
           <div className="text-xl font-bold md:hidden">FitnessTracker</div>
           <div className="ml-auto flex items-center gap-4">
@@ -64,7 +64,7 @@ export default function DashboardPage() {
             </Button>
           </div>
         </div>
-      </header>
+      </header> */}
 
       <main className="container py-6">
         <h1 className="mb-6 text-3xl font-bold">Dashboard</h1>
